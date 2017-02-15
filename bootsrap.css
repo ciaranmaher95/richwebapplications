@@ -4411,7 +4411,7 @@ input[type="submit"].btn.btn-mini {
   overflow: visible;
 }
 
-.navbar .brand {
+.navbar  {
   display: block;
   float: left;
   padding: 10px 20px 10px;
@@ -4422,8 +4422,8 @@ input[type="submit"].btn.btn-mini {
   text-shadow: 0 1px 0 #ffffff;
 }
 
-.navbar .brand:hover,
-.navbar .brand:focus {
+.navbar:hover,
+.navbar:focus {
   text-decoration: none;
 }
 
@@ -4802,20 +4802,20 @@ input[type="submit"].btn.btn-mini {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
 }
 
-.navbar-inverse .brand,
+.navbar-inverse,
 .navbar-inverse .nav > li > a {
   color: #999999;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.navbar-inverse .brand:hover,
+.navbar-inverse:hover,
 .navbar-inverse .nav > li > a:hover,
-.navbar-inverse .brand:focus,
+.navbar-inverse:focus,
 .navbar-inverse .nav > li > a:focus {
   color: #ffffff;
 }
 
-.navbar-inverse .brand {
+.navbar-inverse {
   color: #999999;
 }
 
