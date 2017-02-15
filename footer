@@ -1,0 +1,16 @@
+<footer>
+            <h1>Follow us on Social Media</h1>
+            <nav id="footer_nav">
+              <ul>
+                  <li><a href="http://www.facebook.com"><img src="../images/facebook.png">Facebook</a></li>
+                  <li><a href="http://www.twitter.com"><img src="../images/twitter.png">Twitter</a></li>
+                      <li><a href="http://plus.google.com"><img src="../images/googleplus.png">Google+</a></li>
+                       <li><a href="http://www.blogger.com"><img src="../images/blogger.png">Blogger</a></li>
+                </ul>
+                <nav>
+            <div id="footer_end">
+            <p>&copy; <?php echo date("Y"); ?> Language Company, Inc</p>
+            </div>
+        </footer>
+    </body>
+</html>
