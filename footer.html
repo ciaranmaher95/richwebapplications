@@ -1,21 +1,21 @@
 <style>
-ul, li
+#footer-nav ul, li
 {
     display:inline-block;
 }
 
-li
+#facebook,#twitter,#googleplus,#blogger
 {
     margin-left: 200px;
     margin-top: 50px;
 }
 
-h1
+h2
 {
    text-align: center; 
    opacity: 0.7;
    font-style:oblique;
-    
+   
 }
 p
 {
@@ -23,9 +23,9 @@ p
 }
 img
 {
-   opacity: 0.6;
    height: 70px;
-   width: 70px;   
+   width: 70px; 
+   opacity: 0.7;
 }
 
 a
@@ -34,23 +34,58 @@ a
     color: black;
     
 }
+ .icon-bar {
+    width: 100%;
+    text-align: center;
     
+    overflow: auto;
+    
+}
+
+.icon-bar a {
+    width: 20%;
+    padding: 12px 30px;
+    float: left;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+    
+}
+
+.icon-bar a:hover {
+   
+    
+}
+
+.active {
+    background-color: #4CAF50;
+}   
     
 </style>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <footer>
-            <h1>Follow us on Social Media</h1>
-            <nav id="footer_nav">
-              <ul>
-                  <li><a target="blank" href="http://www.facebook.com"><img src="images/facebook.png"></a></li>
-                  <li><a target="blank" href="http://www.twitter.com"><img src="images/twitter.png"></a></li>
-                  <li><a target="blank" href="http://plus.google.com"><img src="images/googleplus.png"></a></li>
-                  <li><a target="blank" href="http://www.blogger.com"><img src="images/blogger.png"></a></li>
-                </ul>
-                <nav>
+    <h2>Follow us on Social Media</h2>
+    
+    
+    <div class="icon-bar">
+  <a target="blank" href="http://www.facebook.com"><img src="../images/facebook.png" alt=""></a> 
+  <a target="blank" href="http://www.twitter.com"><img src="../images/twitter.png" alt=""></a> 
+  <a target="blank" href="http://plus.google.com"><img src="../images/googleplus.png" alt=""></a> 
+  <a target="blank" href="http://www.blogger.com"><img src="../images/blogger.png" alt=""></a>
+
+</div>
+    
+            
+              
             <div id="footer_end">
-            <p>&copy; <?php echo date("Y"); ?> Language Company, Inc</p>
+                <p>&copy; 2017 Language Company, Inc</p>
             </div>
         </footer>
+
+
+
+
     </body>
 </html>
