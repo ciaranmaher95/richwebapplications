@@ -1,3 +1,4 @@
+
 <?php
 include ("header.php");
 ?>
@@ -9,30 +10,31 @@ include ("header.php");
     <h1>Register To Become A User</h1>	
 </header>
 <div class="wrapper">
-    <form method="post" action="" class="ccform">
+    <form action="." method="post" class="ccform">
+        <input type="hidden" name="action" value="create_member">
     <div class="ccfield-prepend">
         <span class="ccform-addon"><i class="fa fa-user fa-2x"></i></span>
-        <input id="first" class="ccformfield" type="text" placeholder="First Name" required>
+        <input id="first" name="first-name" class="ccformfield" type="text" placeholder="First Name" required>
     </div>
     <div class="ccfield-prepend">
         <span class="ccform-addon"><i class="fa fa-user fa-2x"></i></span>
-        <input id="last" class="ccformfield" type="text" placeholder="Last Name" required>
+        <input id="last" name="last-name" class="ccformfield" type="text" placeholder="Last Name" required>
     </div>
     <div class="ccfield-prepend">
         <span class="ccform-addon"><i class="fa fa-envelope fa-2x"></i></span>
-        <input id="email" class="ccformfield" type="text" placeholder="Email">
+        <input id="email" name="email" class="ccformfield" type="text" placeholder="Email">
     </div>
      <div class="ccfield-prepend">
         <span class="ccform-addon"><i class="fa fa-user fa-2x"></i></span>
-        <input id="username" class="ccformfield" type="text" placeholder="Username" required>
+        <input id="username" name="username" class="ccformfield" type="text" placeholder="Username" required>
     </div>
          <div class="ccfield-prepend">
         <span class="ccform-addon"><i class="fa fa-star fa-2x"></i></span>
-        <input id="password" class="ccformfield" type="text" placeholder="Password" required>
+        <input id="password" name="password" class="ccformfield" type="text" placeholder="Password" required>
     </div>
         <div class="ccfield-prepend">
         <span class="ccform-addon"><i class="fa fa-calendar fa-2x"></i></span>
-        <input id="dob" class="ccformfield" type="date" placeholder="Date Of Birth" required>
+        <input id="dob" name="date" class="ccformfield" type="date" placeholder="Date Of Birth" required>
     </div>
     
     <div class="ccfield-prepend">
