@@ -1,0 +1,96 @@
+<?php
+function register_member($f_name, $l_name, $dob, $email, $username, $password) {
+    global $db;
+
+    $query = "INSERT INTO members(fname, lname, dob, email, username, password) VALUES(:f_name, :l_name, :dob, :email, :username, :password)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":f_name", $f_name);
+    $statement->bindValue(":l_name", $l_name);
+    $statement->bindValue(":dob", $dob);
+    $statement->bindValue(":email", $email);
+    $statement->bindValue(":username", $username);
+    $statement->bindValue(":password", $password);
+    try {
+        $statement->execute();
+    } catch (Exception $ex) {
+        header("Location: ../view/error.php?msg=" . $ex->getMessage());
+        exit();
+    }
+    $statement->closeCursor();
+}
+
+
+
+function member_login($username, $password) {
+		global $db;
+		
+		$username = strtolower($username);
+		$query = "SELECT memID FROM members
+		WHERE (LOWER(username) = :username 
+		OR LOWER(email) = :email)
+		AND password = :password";
+                
+                //echo "IN MEMBER LOGIN : ".$username. "  ".$password . "\n\n";
+                
+		$statement = $db->prepare($query);
+		$statement->bindValue(":username", $username);
+		$statement->bindValue(":email", $username);
+                $statement->bindValue(":password", $password);
+		try {
+			if(! $statement->execute())
+                            echo "\nExecute Failed\n";
+		} catch(Exception $ex) {
+			header("Location: ../view/error.php?msg=123" . $ex->getMessage());
+			exit();
+		}
+                
+                $member = $statement->fetch();
+                    $memID = $member["memID"];
+		
+		$statement->closeCursor();
+		return $memID;
+ 
+	}
+
+function get_member_name_by_ID($memID) {
+
+    global $db;
+
+    $query = "SELECT * 
+		FROM members
+		WHERE memID = :memID";
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(":memID", $memID);
+    try {
+        $statement->execute();
+    } catch (Exception $ex) {
+        header("Location: ../view/error.php?msg=" . $ex->getMessage());
+        exit();
+    }
+
+    $users = $statement->fetch();
+    $name = $users['username'];
+    return $name;
+}
+function check_member_for_admin($memID){
+    
+    global $db;
+
+    $query = "SELECT * 
+		FROM members
+		WHERE memID = :memID";
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(":memID", $memID);
+    try {
+        $statement->execute();
+    } catch (Exception $ex) {
+        header("Location: ../view/error.php?msg=" . $ex->getMessage());
+        exit();
+    }
+
+    $users = $statement->fetch();
+    $ifAdmin = $users['admin'];
+    return $ifAdmin;
+}
