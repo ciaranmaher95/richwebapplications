@@ -1,0 +1,100 @@
+<?php
+
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
+
+/*
+
+ * this is the controller php file posible passed values of $action and $category_id 
+ * 1) None - then this the index page so show the default category category (categoryID=1)
+ * 2) POST input ->
+ * 3) GET input
+
+ *  */
+
+//need the following files to connect to DB and to make fuctions available
+require("../model/database.php");
+require("../model/members_db.php");
+//require("../model/brand_db.php");
+//require("../model/product_db.php");
+
+session_start();
+$action = filter_input(INPUT_POST, 'action');
+if ($action == NULL)
+{
+    $action = filter_input(INPUT_GET, 'action');
+    if ($action == NULL)
+    {
+        $action = 'show_landing_page';
+    }
+}
+if ($action == "show_landing_page")
+{
+    $brand_id = filter_input(INPUT_GET, "brand_id");
+    if ($brand_id == NULL || $brand_id == false)
+    {
+        $brand_id = 1; //default setting
+    }
+    include("../view/Landing_page.php");
+} else if ($action == 'show_Login')
+{
+    if (isset($_SESSION['memID']))
+    {
+        header('Location: .?action=show_landing_page');
+    } else
+    {
+        include '../view/login.php';
+    }
+} else if ($action == "show_sign_in")
+{
+    if (isset($_SESSION['memID']))
+    {
+        header('Location: .?action=show_landing_page');
+    } else
+    {
+        include '../view/sign_up.php';
+    }
+} else if ($action == 'create_member')
+{
+   
+    
+    $f_name = filter_input(INPUT_POST, 'first-name', FILTER_SANITIZE_STRING);
+    $l_name = filter_input(INPUT_POST, 'last-name', FILTER_SANITIZE_STRING);
+    $dob = filter_input(INPUT_POST, 'date');
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+    $password = filter_input(INPUT_POST, 'password');
+    $password_hash = md5($password);
+    
+    register_member($f_name, $l_name, $dob, $email, $username, $password_hash);
+    
+    header('Location: .?action=show_Login');
+    //echo 'invaild sign up';
+} else if ($action == 'login_member')
+{
+    $username = filter_input(INPUT_POST, 'username');
+    $password = filter_input(INPUT_POST, 'password');
+    $password_hash = md5($password);
+    $memID = member_login($username, $password_hash);
+   
+    $name = get_member_name_by_ID($memID);
+    $ifAdmin = check_member_for_admin($memID);
+    if ($memID == NULL)
+    {
+        $_POST['error'] = TRUE;
+        //header('Location: .?action=show_Login');
+        //echo 'invaild log in';
+    } else
+    {
+        $_SESSION['username'] = $name;
+        $_SESSION['memID'] = $memID;
+        $_SESSION['ifAdmin'] = $ifAdmin;
+        header('Location: .?action=show_landing_page');
+    }
+} else if ($action == 'logout')
+{
+    $_SESSION = array();
+    session_destroy();
+    header('Location: .?action=show_landing_page');
+}
