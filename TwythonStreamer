@@ -1,0 +1,45 @@
+CONSUMER_KEY = 	"yg4idxlIl73OiK8a4vpAsyT2o"
+CONSUMER_SECRET = "XR7NaOk9JPWNptctB4a8XAz47ruRujiygcCOgiq9EeSoCuly1i"
+ACCESS_TOKEN = "260401770-JFPObwAstgeJIpMZXQDhLsJpV4ZUw2PslDpiaPZp"
+ACCESS_TOKEN_SECRET = 	"b1Y6caMiDuPEtzbGlEU32U6yaL3E0BBuowreOcJSJlsZM"
+
+from twython import TwythonStreamer
+
+tweets = []
+
+class MyStreamer(TwythonStreamer):
+	def on_success(self,data):
+		if data['lang']=='en':
+			print(data)
+			saveFile = open('datafromtwitter.txt','a',encoding='utf-8')
+			saveFile.write(str(data))
+			saveFile.write('\n')
+			saveFile.close()
+			tweets.append(data)
+    
+	if len(tweets)>=1000:
+		self.disconnect()
+  
+	def on_error(self,status_code,data):
+		print(status_code,data)
+		self.disconect()
+	
+def call_twitter_streaming_api():
+	stream = MyStreamer(CONSUMER_KEY,CONSUMER_SECRET,ACCESS_TOKEN,ACCESS_TOKEN_SECRET)
+	stream.statuses.filter(track='bmw')	
+	
+def analyse_tweet_text() :
+	for tweet in tweets_david:
+		terms_all=(tweet['text'].split())
+		count_all.update(terms_all)
+	print(count_all.most_common(250))
+	
+	tweet_dict = {}
+def read_tweets():
+	with open('twitter-Data2.txt', 'r' , encoding= 'ISO-8859-1') as f:	
+		for line in f:
+			tweets.append((line))
+	
+def convert_tweets_to_dict():
+	for i in range(0, 801):
+		tweets_david.append(ast.literal_eval(tweets[i]))
