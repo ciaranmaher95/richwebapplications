@@ -1,0 +1,63 @@
+try {
+            URL url = new URL("http://api.tvmaze.com/search/people?q=" + query);
+            
+            InputStream in = url.openStream();
+
+            JsonReader reader = Json.createReader(in);
+
+            JsonArray array = reader.readArray();  // top level object - first "["
+            
+            // Having consumed the first "[" and read in the JsonArray,
+            // we can iterate over the elements in the array, and extract
+            // each JsonObject.
+            
+            
+            ArrayList<Person> personList = new ArrayList<>();
+            ArrayList<String> imageUrls = new ArrayList<String>(); 
+            
+            for(int i = 0; i < array.size(); i++)
+            {
+                JsonObject object = array.getJsonObject(i);
+                
+                JsonObject personObject = object.getJsonObject("person");
+                JsonObject linksObject = personObject.getJsonObject("_links");
+                JsonObject selfObject = linksObject.getJsonObject("self");
+                
+                JsonObject imageObject = null;
+                try{
+                    imageObject = personObject.getJsonObject("image");
+                }catch(ClassCastException ex){
+                    
+                }
+                
+                double score = object.getJsonNumber("score").doubleValue();
+                String queryName = query;
+                String name = personObject.getJsonString("name").getString();
+                int id = personObject.getJsonNumber("id").intValue();
+                
+                String personLink = selfObject.getJsonString("href").getString();
+                
+                
+                String imageMedium = null; 
+                String imageOriginal = null; 
+                if(imageObject != null)
+                {
+                    imageMedium = imageObject.getString("medium", "null"); 
+                    imageOriginal = imageObject.getString("original", "null");
+                    
+                }
+                
+                double myRating = 0; 
+                String myComments = "";
+                
+                Person person = new Person(score, queryName, name, id, imageMedium, personLink, myRating, myComments);
+                personList.add(person);
+                
+                actorList.put(query, personList);
+                
+                
+            }
+            demoListToHTML(strPath,strName,personList);
+            
+        } catch (IOException e) {
+        }
